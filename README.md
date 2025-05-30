@@ -25,6 +25,8 @@ Baza danych leci na PostgreSQL, a frontend to prosty HTML+CSS (trochę dopieszcz
 - **index.php** – główna strona na start. Masz tu logowanie i rejestrację. Jak wjedziesz na dashboard bez zalogowania, to i tak Cię wywali.
 - **todolist.php** – dashboard z listą zadań. Odpala się dopiero po zalogowaniu. Wszystko ładnie pokazane w tabelkach, bez kombinowania.
 - **db.php** – połączenie z bazą danych przez PDO. Nie wrzucam go do repo, bo tam są dane logowania (no i to lokalna baza, ale wiadomo, ostrożności nigdy za wiele).
+- **style.css** - style do głównej stronki.
+- **todo.css** - style do dashboarda.
 
 ---
 
