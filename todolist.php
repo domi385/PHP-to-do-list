@@ -2,10 +2,27 @@
     session_start();
     include("db.php");
 
+
+    // Zabezpieczenie przed spamem
     if (!isset($_SESSION['csrf_token'])) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
 
+    function returnUsername(){
+        global $pdo;
+        $userID = $_SESSION["userID"];
+        try{
+            $sql = "select name from accounts where id = :id";
+            $query = $pdo->prepare($sql);
+            $query->execute(['id' => $userID]);
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+
+            return $result['name'] ?? 'Nieznany użytkownik';
+        }
+        catch( PDOException $e ){
+            echo "<div class='error'>Błąd bazy danych: " . htmlspecialchars($e->getMessage()) . "</div>";
+        }
+    }
 
     function returnTasks() {
         global $pdo;
@@ -19,9 +36,9 @@
             echo '<tr><th>Task ID</th><th>Task</th><th></th></tr>';
 
             foreach($result as $row){
-                echo "<tr><td>{$row['id']}</td><td>{$row['task']}</td> <td> 
+                echo "<tr><td>" . (int)$row['id'] . "</td><td>" . htmlspecialchars($row['task']) . "</td> <td> 
                     <form action='api/removeTask.php' method='post'>
-                        <input type='hidden' value='{$row['id']}' name='taskrm'>
+                        <input type='hidden' value='" . (int)$row['id'] . "' name='taskrm'>
                         <button type='submit'>Usuń</button>
                     </form>
                 </td> </tr>";
@@ -42,6 +59,11 @@
 </head>
 <body>
 <?php if ( isset($_SESSION["userID"]) ): ?>
+
+    <div class="container">
+        <h1>Zalogowano jako <b><?php echo returnUsername(); ?></b> </h1>
+    </div>
+
     <div class="container">
         <h1>Zarządzanie Zadaniami</h1>
 

@@ -5,9 +5,9 @@
     function verifyPassword( $password, $username ){ // sprawdzenie czy hasło pasuje do tego w bazie
         $hash = getHash( $username ); // bierzemy hasha z bazy
 
-        if( !$hash ) return false; // jak nie ma hasha - czyli nie ma usera, to wypierdalamy
+        if( !$hash ) return false; // jak nie ma hasha - czyli nie ma usera, to wywalamy
 
-        return password_verify( $password, $hash ) ? true : false; // sprawdzamy w końcu czy hasło pasuje, jak nie to chuj :)
+        return password_verify( $password, $hash ) ? true : false; // sprawdzamy w końcu czy hasło pasuje, jak nie to lipa :)
     }
     function getHash( $username ){ // bierzemy hasło z bazy
         global $pdo;
@@ -19,7 +19,7 @@
 
         return $hash;
     }
-    function validUsername( $username ){ // żeby nygus nie wjebał ascii arta w username
+    function validUsername( $username ){ // żeby nie było ascii arta w username
         if(!preg_match("/^[a-zA-Z0-9_]{3,20}$/", $username)){
             //header("Location: index.php");
             return false;
@@ -38,10 +38,10 @@
     try{ // bo przecież baza też może sie wyjebać
         if( isset($_POST["username"]) && isset($_POST["password"]) && $_POST["username"] != "" && $_POST["password"] != "" ){ // żeby chujek nie wjebał pustego inputa
             
-            if( validUsername( $_POST["username"] ) ) // sprawdzenie czy nie ma ascii arta albo chuj wie czego, bo można sie wszystkiego spodziewać
+            if( validUsername( $_POST["username"] ) ) // sprawdzenie czy nie ma ascii arta albo nie wiadomo czego, bo można sie wszystkiego spodziewać
                 $username = $_POST["username"]; // jeśli jest ok, to ustawiamy $username na inputa
             else{   
-                header("Location: ../index.php"); // jak nie - to chuj mu w dupe, wypierdalamy go
+                header("Location: ../index.php"); // jak nie - to wywalamy go
                 exit;
             }
             $password = $_POST["password"]; // jak username przeszedł, to do $password przypisujemy inputa

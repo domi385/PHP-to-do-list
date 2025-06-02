@@ -2,6 +2,8 @@
     session_start();
     include("../db.php");
 
+    // zabezpieczenie przed spamem 
+
     if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
         die("HACKING ATTEMPT WYKRYTY, ID SPIERDALAJ.");
     }

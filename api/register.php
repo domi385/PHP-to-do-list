@@ -10,7 +10,7 @@
         }
     }
     function uniqueUsername ($result){
-        if($result->rowCount() > 0){ // jeśli jest >0 rekordów, to znaczy że już jest taki username, więc niech spierdala
+        if($result->rowCount() > 0){ // jeśli jest >0 rekordów, to znaczy że już jest taki username, więc niech wywala
             //echo "<script> alert('Taki użytkownik już istnieje!') </script>";
             header("Location: ../index.php");
             exit;
@@ -26,7 +26,7 @@
         $_SESSION["userID"] = $pdo->lastInsertId(); // przypisanie userID do sesji, co umożliwi wyświetlenie zawartości strony, taki logged check
     }
 
-    if( isset($_POST["username"]) && isset($_POST["password"]) && $_POST["username"] != "" && $_POST["password"] != "" ){ // żeby nicpoń nie wpierdolił pustego inputa, albo nie wszedł na API przez link
+    if( isset($_POST["username"]) && isset($_POST["password"]) && $_POST["username"] != "" && $_POST["password"] != "" ){ // żeby nicpoń nie wrzucił pustego inputa, albo nie wszedł na API przez link
 
         try{
 
@@ -40,16 +40,16 @@
             $query = $pdo->prepare($sql);
             $query->execute(["name" => $username]);
             
-            uniqueUsername( $query ); // czy chujek nie chce zarejestrować username, który już istnieje
+            uniqueUsername( $query ); // czy ziomek nie chce zarejestrować username, który już istnieje
 
-            addUser( $username, $password ); // jak do tej pory nic nie jebło (małe prawdopodobieństwo, ale możliwe), to niech w końcu doda chłopa (albo babke, czy jak tam sie identyfikuje) do bazy i od razu doda logged checka 
+            addUser( $username, $password ); // jak do tej pory nic sie nie wywaliło (małe prawdopodobieństwo, ale możliwe), to niech w końcu doda chłopa (albo babke, czy jak tam sie identyfikuje) do bazy i od razu doda logged checka 
 
             //echo "<script> alert(' Pomyślnie zarejestrowano użytkownika ') </script>";
-            header("Location: ../todolist.php"); // jak sie udało wpierdolić usera do bazy, to przeniesie na dashboarda
+            header("Location: ../todolist.php"); // jak sie udało wrzucić usera do bazy, to przeniesie na dashboarda
             exit;
 
         }
-        catch(PDOException $e){ // jak baza jebnie, to jebnie na login/register page
+        catch(PDOException $e){ // jak baza spadnie z rowerka, to przeniesie na login/register page
             //echo "<script> alert('Błąd bazy danych: " . $e->getMessage() . " ') </script> ";
             header("Location: ../index.php");
             exit;
