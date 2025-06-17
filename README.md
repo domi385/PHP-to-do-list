@@ -41,6 +41,12 @@ Te pliki ogarniają backendową magię. Nie mają frontu, tylko dostają dane i 
 
 ---
 
+## 📝 Do zrobienia
+
+- **pokazywanie errorów z API, może przez zmienną sesyjną i wyświetlenie jej w indexie? Jeszcze do ustalenia**
+
+---
+
 📌 Wszystkie akcje są oparte na **POST**, jak przystało na klasyczne PHP-owe podejście.
 
 💡 Pliki API spokojnie można ogarnąć AJAXem w przyszłości, jak się zachce trochę dynamicznego JS-a.
